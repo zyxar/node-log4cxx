@@ -1,0 +1,26 @@
+{
+  "name": "log4cxx",
+  "version": "0.0.1",
+  "description": "log4cxx wrapper for Node.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zyxar/node-log4cxx.git"
+  },
+  "author": "zyxar <chou.marcus@gmail.com>",
+  "scripts": {
+  },
+  "main": "build/Release/addon.node",
+  "engines": {
+    "node": ">=4.0.0"
+  },
+  "contributors": [
+    "zyxar <chou.marcus@gmail.com> (https://github.com/zyxar)"
+  ],
+  "bugs": {
+    "url": "https://github.com/zyxar/node-log4cxx/issues"
+  },
+  "devDependencies": {
+    "node-gyp": "~3.0.1"
+  },
+  "license": "Apache 2.0"
+}
