@@ -1,0 +1,7 @@
+test.js
+.travis.yml
+.npmignore
+Makefile
+*.sublime-project
+*.sublime-workspace
+log4cxx.properties
