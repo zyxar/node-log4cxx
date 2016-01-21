@@ -6,6 +6,18 @@ Persistent<Function> Logger::constructor;
 Logger::Logger() {}
 Logger::~Logger() {}
 
+static Local<String> Stringify(Isolate *isolate, Local<Value> value) {
+  if (!value->IsObject()) {
+    return value->ToString(isolate);
+  }
+  Local<Object> JSON = Local<Object>::Cast(
+    isolate->GetCurrentContext()->Global()->Get(String::NewFromUtf8(isolate, "JSON")));
+  Local<Function> stringify = Local<Function>::Cast(
+    JSON->Get(String::NewFromUtf8(isolate, "stringify")));
+  Local<Value> object[] = { value };
+  return stringify->Call(JSON, 1, object)->ToString(isolate);
+} // global.JSON.stringify()
+
 void Logger::Init(Local<Object> exports, Local<Object> module) {
   Isolate *isolate = Isolate::GetCurrent();
 
@@ -32,7 +44,7 @@ void Logger::New(const FunctionCallbackInfo<Value> &args) {
 
   if (args.IsConstructCall()) {
     Logger *logger = new Logger();
-    std::string logName = std::string(*String::Utf8Value(args[0]->ToString()));
+    std::string logName(*String::Utf8Value(args[0]->ToString(isolate)));
     logger->me = log4cxx::Logger::getLogger(logName);
     logger->Wrap(args.This());
     args.GetReturnValue().Set(args.This());
@@ -56,13 +68,12 @@ void Logger::Trace(const FunctionCallbackInfo<Value> &args) {
   ::log4cxx::helpers::MessageBuffer oss_;
   int i = 0;
   for (; i < args.Length() - 1; ++i) {
-    std::string message = std::string(*String::Utf8Value(args[i]->ToString()));
-    oss_ << message;
+    oss_ << *String::Utf8Value(Stringify(isolate, args[i]));
     oss_ << " ";
   }
   logger->me->forcedLog(
       ::log4cxx::Level::getTrace(),
-      oss_.str(oss_ << std::string(*String::Utf8Value(args[i]->ToString()))),
+      oss_.str(oss_ << *String::Utf8Value(Stringify(isolate, args[i]))),
       LOG4CXX_LOCATION);
 #else
   if (!logger->me->isDebugEnabled())
@@ -70,13 +81,12 @@ void Logger::Trace(const FunctionCallbackInfo<Value> &args) {
   ::log4cxx::helpers::MessageBuffer oss_;
   int i = 0;
   for (; i < args.Length() - 1; ++i) {
-    std::string message = std::string(*String::Utf8Value(args[i]->ToString()));
-    oss_ << message;
+    oss_ << *String::Utf8Value(Stringify(isolate, args[i]));
     oss_ << " ";
   }
   logger->me->forcedLog(
       ::log4cxx::Level::getDebug(),
-      oss_.str(oss_ << std::string(*String::Utf8Value(args[i]->ToString()))),
+      oss_.str(oss_ << *String::Utf8Value(Stringify(isolate, args[i]))),
       LOG4CXX_LOCATION);
 #endif
 }
@@ -92,13 +102,12 @@ void Logger::Debug(const FunctionCallbackInfo<Value> &args) {
   ::log4cxx::helpers::MessageBuffer oss_;
   int i = 0;
   for (; i < args.Length() - 1; ++i) {
-    std::string message = std::string(*String::Utf8Value(args[i]->ToString()));
-    oss_ << message;
+    oss_ << *String::Utf8Value(Stringify(isolate, args[i]));
     oss_ << " ";
   }
   logger->me->forcedLog(
       ::log4cxx::Level::getDebug(),
-      oss_.str(oss_ << std::string(*String::Utf8Value(args[i]->ToString()))),
+      oss_.str(oss_ << *String::Utf8Value(Stringify(isolate, args[i]))),
       LOG4CXX_LOCATION);
 }
 
@@ -113,13 +122,12 @@ void Logger::Info(const FunctionCallbackInfo<Value> &args) {
   ::log4cxx::helpers::MessageBuffer oss_;
   int i = 0;
   for (; i < args.Length() - 1; ++i) {
-    std::string message = std::string(*String::Utf8Value(args[i]->ToString()));
-    oss_ << message;
+    oss_ << *String::Utf8Value(Stringify(isolate, args[i]));
     oss_ << " ";
   }
   logger->me->forcedLog(
       ::log4cxx::Level::getInfo(),
-      oss_.str(oss_ << std::string(*String::Utf8Value(args[i]->ToString()))),
+      oss_.str(oss_ << *String::Utf8Value(Stringify(isolate, args[i]))),
       LOG4CXX_LOCATION);
 }
 
@@ -134,13 +142,12 @@ void Logger::Warn(const FunctionCallbackInfo<Value> &args) {
   ::log4cxx::helpers::MessageBuffer oss_;
   int i = 0;
   for (; i < args.Length() - 1; ++i) {
-    std::string message = std::string(*String::Utf8Value(args[i]->ToString()));
-    oss_ << message;
+    oss_ << *String::Utf8Value(Stringify(isolate, args[i]));
     oss_ << " ";
   }
   logger->me->forcedLog(
       ::log4cxx::Level::getWarn(),
-      oss_.str(oss_ << std::string(*String::Utf8Value(args[i]->ToString()))),
+      oss_.str(oss_ << *String::Utf8Value(Stringify(isolate, args[i]))),
       LOG4CXX_LOCATION);
 }
 
@@ -155,13 +162,12 @@ void Logger::Error(const FunctionCallbackInfo<Value> &args) {
   ::log4cxx::helpers::MessageBuffer oss_;
   int i = 0;
   for (; i < args.Length() - 1; ++i) {
-    std::string message = std::string(*String::Utf8Value(args[i]->ToString()));
-    oss_ << message;
+    oss_ << *String::Utf8Value(Stringify(isolate, args[i]));
     oss_ << " ";
   }
   logger->me->forcedLog(
       ::log4cxx::Level::getError(),
-      oss_.str(oss_ << std::string(*String::Utf8Value(args[i]->ToString()))),
+      oss_.str(oss_ << *String::Utf8Value(Stringify(isolate, args[i]))),
       LOG4CXX_LOCATION);
 }
 
@@ -176,12 +182,11 @@ void Logger::Fatal(const FunctionCallbackInfo<Value> &args) {
   ::log4cxx::helpers::MessageBuffer oss_;
   int i = 0;
   for (; i < args.Length() - 1; ++i) {
-    std::string message = std::string(*String::Utf8Value(args[i]->ToString()));
-    oss_ << message;
+    oss_ << *String::Utf8Value(Stringify(isolate, args[i]));
     oss_ << " ";
   }
   logger->me->forcedLog(
       ::log4cxx::Level::getFatal(),
-      oss_.str(oss_ << std::string(*String::Utf8Value(args[i]->ToString()))),
+      oss_.str(oss_ << *String::Utf8Value(Stringify(isolate, args[i]))),
       LOG4CXX_LOCATION);
 }
