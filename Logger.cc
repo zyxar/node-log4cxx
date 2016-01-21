@@ -10,11 +10,12 @@ static Local<String> Stringify(Isolate *isolate, Local<Value> value) {
   if (!value->IsObject()) {
     return value->ToString(isolate);
   }
-  Local<Object> JSON = Local<Object>::Cast(
-    isolate->GetCurrentContext()->Global()->Get(String::NewFromUtf8(isolate, "JSON")));
+  Local<Object> JSON =
+      Local<Object>::Cast(isolate->GetCurrentContext()->Global()->Get(
+          String::NewFromUtf8(isolate, "JSON")));
   Local<Function> stringify = Local<Function>::Cast(
-    JSON->Get(String::NewFromUtf8(isolate, "stringify")));
-  Local<Value> object[] = { value };
+      JSON->Get(String::NewFromUtf8(isolate, "stringify")));
+  Local<Value> object[] = {value};
   return stringify->Call(JSON, 1, object)->ToString(isolate);
 } // global.JSON.stringify()
 
