@@ -1,6 +1,6 @@
 {
   "name": "log4cxx",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "log4cxx wrapper for Node.js",
   "repository": {
     "type": "git",
