@@ -1,4 +1,6 @@
-var log = new require('.')('Logger');
+/*global require*/
+'use strict';
+var log = new (require('.'))('LOG4CXX');
 
 log.trace('Hello World!');
 log.debug('Hello World!');
@@ -15,4 +17,4 @@ log.info({});
 log.info(0);
 log.info(false);
 
-log.info(undefined, null, '', [], {}, 0, false, true, 'Hello World!', {Name: 'Logger', No: 1}, [1,2,3,4]);
+log.info(undefined, null, '', [], {}, 0, false, true, 'Hello World!', {Name: 'LOG4CXX', No: 1}, [1,2,3,4]);
