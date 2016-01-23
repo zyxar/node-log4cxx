@@ -16,7 +16,12 @@ static Local<String> Stringify(Isolate *isolate, Local<Value> value) {
   Local<Function> stringify = Local<Function>::Cast(
       JSON->Get(String::NewFromUtf8(isolate, "stringify")));
   Local<Value> object[] = {value};
-  return stringify->Call(JSON, 1, object)->ToString(isolate);
+  TryCatch try_catch;
+  auto ret = stringify->Call(JSON, 1, object);
+  if (try_catch.HasCaught()) {
+    return value->ToString(isolate);
+  }
+  return ret->ToString();
 } // global.JSON.stringify()
 
 void Logger::Init(Local<Object> exports, Local<Object> module) {

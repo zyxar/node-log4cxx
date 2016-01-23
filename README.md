@@ -31,9 +31,7 @@ log.info('Hello World');
 
 ## Known issues
 
-1. [Segfault on printing Circular objects](https://github.com/zyxar/node-log4cxx/issues/1)
-
-  - Using a JavaScript wrapper is a [work-around](https://github.com/zyxar/node-log4cxx/issues/1#issuecomment-173944009)
+1. <del>[Segfault on printing Circular objects](https://github.com/zyxar/node-log4cxx/issues/1)</del>
   
 ## [Configuration](https://logging.apache.org/log4cxx/usage.html)
 

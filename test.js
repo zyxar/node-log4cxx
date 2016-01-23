@@ -17,4 +17,8 @@ log.info({});
 log.info(0);
 log.info(false);
 
+var a = {};
+a.a = a;
+
 log.info(undefined, null, '', [], {}, 0, false, true, 'Hello World!', {Name: 'LOG4CXX', No: 1}, [1,2,3,4]);
+log.info(undefined, null, '', [], {}, 0, false, true, 'Hello World!', a, [null,undefined,true,a]);
