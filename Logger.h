@@ -22,6 +22,7 @@ private:
   static void Warn(const v8::FunctionCallbackInfo<v8::Value> &);
   static void Error(const v8::FunctionCallbackInfo<v8::Value> &);
   static void Fatal(const v8::FunctionCallbackInfo<v8::Value> &);
+  static void GetLevel(const v8::FunctionCallbackInfo<v8::Value> &);
 
   explicit Logger();
   ~Logger();

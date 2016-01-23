@@ -39,6 +39,7 @@ void Logger::Init(Local<Object> exports, Local<Object> module) {
   NODE_SET_PROTOTYPE_METHOD(tpl, "warn", Warn);
   NODE_SET_PROTOTYPE_METHOD(tpl, "error", Error);
   NODE_SET_PROTOTYPE_METHOD(tpl, "fatal", Fatal);
+  NODE_SET_PROTOTYPE_METHOD(tpl, "getLevel", GetLevel);
 
   constructor.Reset(isolate, tpl->GetFunction());
   module->Set(String::NewFromUtf8(isolate, "exports"), tpl->GetFunction());
@@ -187,4 +188,14 @@ void Logger::Fatal(const FunctionCallbackInfo<Value> &arguments) {
       ::log4cxx::Level::getFatal(),
       oss_.str(oss_ << *String::Utf8Value(Stringify(isolate, arguments[i]))),
       LOG4CXX_LOCATION);
+}
+
+void Logger::GetLevel(const FunctionCallbackInfo<Value> &arguments) {
+  Isolate *isolate = arguments.GetIsolate();
+  auto p = ObjectWrap::Unwrap<Logger>(arguments.Holder())->me;
+  while (p->getLevel() == nullptr && p != log4cxx::Logger::getRootLogger()) {
+    p = p->getParent();
+  }
+  arguments.GetReturnValue().Set(
+      String::NewFromUtf8(isolate, p->getLevel()->toString().c_str()));
 }

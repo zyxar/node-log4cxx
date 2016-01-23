@@ -1,6 +1,7 @@
 /*global require*/
 'use strict';
 var log = new (require('.'))('LOG4CXX');
+log.fatal('Log level:', log.getLevel());
 
 log.trace('Hello World!');
 log.debug('Hello World!');
