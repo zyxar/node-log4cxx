@@ -54,10 +54,9 @@ void Logger::New(const FunctionCallbackInfo<Value> &arguments) {
     logger->Wrap(arguments.This());
     arguments.GetReturnValue().Set(arguments.This());
   } else {
-    const int argc = 1;
-    Local<Value> argv[argc] = {arguments[0]};
+    Local<Value> argv[] = {arguments[0]};
     Local<Function> cons = Local<Function>::New(isolate, constructor);
-    arguments.GetReturnValue().Set(cons->NewInstance(argc, argv));
+    arguments.GetReturnValue().Set(cons->NewInstance(1, argv));
   }
 }
 

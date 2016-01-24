@@ -1,6 +1,8 @@
 # node-log4cxx
 [![NPM](https://nodei.co/npm/log4cxx.png?downloads=true)](https://nodei.co/npm/log4cxx/)
 
+[![Build Status](https://api.travis-ci.org/zyxar/node-log4cxx.svg?branch=master)](https://travis-ci.org/zyxar/node-log4cxx)
+
 This is a log4cxx wrapper for working with [Node.js](https://nodejs.org). If your Node.js application has a native addon which has already included log4cxx for logging, you will find this module really useful to unify the logging system and simplify the configuration.
 
 
