@@ -21,7 +21,14 @@ This is a log4cxx wrapper for working with [Node.js](https://nodejs.org). If you
 - From NPM: `npm install log4cxx --save`
 
 
-## Quick start
+## Brief introduction
+
+This module exports a `Logger` function as object constructor, as well as `Logger._`. Internally, `Logger` uses `Logger._` to accompany with `liblog4cxx`. However, `Logger` is better for formatting objects, whilst `Logger._` is better in efficiency. BTW, `Logger._` is almost the same as `log4cxx@0.0.2` module.
+
+Read liblog4cxx usage for [configuration](https://logging.apache.org/log4cxx/usage.html) details.
+See [test.js](https://github.com/zyxar/node-log4cxx/blob/master/test.js) for sample code.
+
+### Quick start
 
 - Prepare a `log4cxx.properties` file, as [sample](https://github.com/zyxar/node-log4cxx/blob/master/log4cxx.properties)
 
@@ -30,12 +37,6 @@ This is a log4cxx wrapper for working with [Node.js](https://nodejs.org). If you
 var log = new (require('log4cxx'))('demo');
 log.info('Hello World');
 ```
-
-## Known issues
-
-1. <del>[Segfault on printing Circular objects](https://github.com/zyxar/node-log4cxx/issues/1)</del>
-  
-## [Configuration](https://logging.apache.org/log4cxx/usage.html)
 
 ## License
 Apache 2.0
