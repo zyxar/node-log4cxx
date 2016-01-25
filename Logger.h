@@ -8,7 +8,7 @@
 
 class Logger : public node::ObjectWrap {
 public:
-  static void Init(v8::Local<v8::Object> exports, v8::Local<v8::Object> module);
+  static void Init(v8::Local<v8::Object>, v8::Local<v8::Object>);
   log4cxx::LoggerPtr me;
 
 private:

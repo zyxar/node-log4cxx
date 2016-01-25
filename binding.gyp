@@ -1,6 +1,6 @@
 {
   'targets': [{
-    'target_name': 'addon',
+    'target_name': 'log4cxx',
     'sources': [ 'addon.cc',
       'Logger.cc'
     ],

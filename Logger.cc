@@ -29,7 +29,7 @@ void Logger::Init(Local<Object> exports, Local<Object> module) {
 
   // Prepare constructor template
   Local<FunctionTemplate> tpl = FunctionTemplate::New(isolate, New);
-  tpl->SetClassName(String::NewFromUtf8(isolate, "Logger"));
+  tpl->SetClassName(String::NewFromUtf8(isolate, "Log4cxx"));
   tpl->InstanceTemplate()->SetInternalFieldCount(1);
 
   // Prototype
