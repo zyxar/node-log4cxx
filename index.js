@@ -15,7 +15,8 @@
 
   ['trace', 'debug', 'info', 'warn', 'error', 'fatal'].map(function (fn) {
     Logger.prototype[fn] = function () {
-      return _[this.catagory][fn](util.format.apply(util, arguments));
+      _[this.catagory][fn](util.format.apply(util, arguments));
+      return this;
     };
     Object.defineProperty(Logger.prototype[fn], 'name', {value: fn});
   });

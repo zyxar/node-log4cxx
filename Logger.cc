@@ -62,6 +62,7 @@ void Logger::New(const FunctionCallbackInfo<Value> &arguments) {
 
 void Logger::Trace(const FunctionCallbackInfo<Value> &arguments) {
   Isolate *isolate = arguments.GetIsolate();
+  arguments.GetReturnValue().Set(arguments.This());
   if (arguments.Length() < 1)
     return;
   Logger *logger = ObjectWrap::Unwrap<Logger>(arguments.Holder());
@@ -96,6 +97,7 @@ void Logger::Trace(const FunctionCallbackInfo<Value> &arguments) {
 
 void Logger::Debug(const FunctionCallbackInfo<Value> &arguments) {
   Isolate *isolate = arguments.GetIsolate();
+  arguments.GetReturnValue().Set(arguments.This());
   if (arguments.Length() < 1)
     return;
   Logger *logger = ObjectWrap::Unwrap<Logger>(arguments.Holder());
@@ -115,6 +117,7 @@ void Logger::Debug(const FunctionCallbackInfo<Value> &arguments) {
 
 void Logger::Info(const FunctionCallbackInfo<Value> &arguments) {
   Isolate *isolate = arguments.GetIsolate();
+  arguments.GetReturnValue().Set(arguments.This());
   if (arguments.Length() < 1)
     return;
   Logger *logger = ObjectWrap::Unwrap<Logger>(arguments.Holder());
@@ -134,6 +137,7 @@ void Logger::Info(const FunctionCallbackInfo<Value> &arguments) {
 
 void Logger::Warn(const FunctionCallbackInfo<Value> &arguments) {
   Isolate *isolate = arguments.GetIsolate();
+  arguments.GetReturnValue().Set(arguments.This());
   if (arguments.Length() < 1)
     return;
   Logger *logger = ObjectWrap::Unwrap<Logger>(arguments.Holder());
@@ -153,6 +157,7 @@ void Logger::Warn(const FunctionCallbackInfo<Value> &arguments) {
 
 void Logger::Error(const FunctionCallbackInfo<Value> &arguments) {
   Isolate *isolate = arguments.GetIsolate();
+  arguments.GetReturnValue().Set(arguments.This());
   if (arguments.Length() < 1)
     return;
   Logger *logger = ObjectWrap::Unwrap<Logger>(arguments.Holder());
@@ -172,6 +177,7 @@ void Logger::Error(const FunctionCallbackInfo<Value> &arguments) {
 
 void Logger::Fatal(const FunctionCallbackInfo<Value> &arguments) {
   Isolate *isolate = arguments.GetIsolate();
+  arguments.GetReturnValue().Set(arguments.This());
   if (arguments.Length() < 1)
     return;
   Logger *logger = ObjectWrap::Unwrap<Logger>(arguments.Holder());
