@@ -1,14 +1,14 @@
 #ifndef Logger_h
 #define Logger_h
 
-#include <log4cxx/logger.h>
 #include <log4cxx/helpers/exception.h>
+#include <log4cxx/logger.h>
 #include <node.h>
 #include <node_object_wrap.h>
 
 class Logger : public node::ObjectWrap {
 public:
-  static void Init(v8::Local<v8::Object>, v8::Local<v8::Object>);
+  static void Init(v8::Handle<v8::Object>, v8::Handle<v8::Object>);
   log4cxx::LoggerPtr me;
 
 private:

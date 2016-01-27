@@ -1,9 +1,7 @@
 {
   'targets': [{
     'target_name': 'log4cxx',
-    'sources': [ 'addon.cc',
-      'Logger.cc'
-    ],
+    'sources': [ 'Logger.cc' ],
     'include_dirs' : [],
     'conditions': [
       [ 'OS=="mac"', {

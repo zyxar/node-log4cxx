@@ -1,12 +1,22 @@
 #include "Logger.h"
 
-using namespace v8;
+using v8::FunctionCallbackInfo;
+using v8::FunctionTemplate;
+using v8::Function;
+using v8::Handle;
+using v8::Isolate;
+using v8::Local;
+using v8::Object;
+using v8::Persistent;
+using v8::String;
+using v8::TryCatch;
+using v8::Value;
 
 Persistent<Function> Logger::constructor;
 Logger::Logger() {}
 Logger::~Logger() {}
 
-static Local<String> Stringify(Isolate *isolate, Local<Value> value) {
+static Local<String> Stringify(Isolate *isolate, Handle<Value> value) {
   if (!value->IsObject()) {
     return value->ToString(isolate);
   }
@@ -24,7 +34,7 @@ static Local<String> Stringify(Isolate *isolate, Local<Value> value) {
   return ret->ToString();
 } // global.JSON.stringify()
 
-void Logger::Init(Local<Object> exports, Local<Object> module) {
+void Logger::Init(Handle<Object> exports, Handle<Object> module) {
   Isolate *isolate = exports->GetIsolate();
 
   // Prepare constructor template
@@ -204,3 +214,5 @@ void Logger::GetLevel(const FunctionCallbackInfo<Value> &arguments) {
   arguments.GetReturnValue().Set(
       String::NewFromUtf8(isolate, p->getLevel()->toString().c_str()));
 }
+
+NODE_MODULE(Logger, Logger::Init)
